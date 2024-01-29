@@ -6,6 +6,7 @@ import {
   Patch,
   Param,
   Delete,
+  ParseIntPipe,
 } from '@nestjs/common';
 import { NotesService } from './notes.service';
 import { CreateNoteDto } from './dto/create-note.dto';
@@ -41,21 +42,24 @@ export class NotesController {
   @Get(':id')
   @ApiTags('Notes')
   @ApiCreatedResponse({ type: NoteEntity })
-  findOne(@Param('id') id: string) {
+  findOne(@Param('id', ParseIntPipe) id: string) {
     return this.notesService.findOne(+id);
   }
 
   @Patch(':id')
   @ApiTags('Notes')
   @ApiCreatedResponse({ type: NoteEntity })
-  update(@Param('id') id: string, @Body() updateNoteDto: UpdateNoteDto) {
+  update(
+    @Param('id', ParseIntPipe) id: string,
+    @Body() updateNoteDto: UpdateNoteDto,
+  ) {
     return this.notesService.update(+id, updateNoteDto);
   }
 
   @Delete(':id')
   @ApiTags('Notes')
   @ApiCreatedResponse({ type: NoteEntity })
-  remove(@Param('id') id: string) {
+  remove(@Param('id', ParseIntPipe) id: string) {
     return this.notesService.remove(+id);
   }
 }
