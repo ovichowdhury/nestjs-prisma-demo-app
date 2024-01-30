@@ -66,6 +66,22 @@ Nest is an MIT-licensed open source project. It can grow thanks to the sponsors 
 
 [learn more](https://www.prisma.io/blog/nestjs-prisma-rest-api-7D056s1BmOL0)
 
+## Commands
+
+```bash
+# for generating migration
+$ npx prisma migrate dev --name "name-of-migration"
+
+# for seeding db
+$ npx prisma db seed
+
+# for generating resource
+$ npx nest generate resource
+
+# for generating filter
+$ npx nest generate filter <name-of-filter>
+```
+
 ## Stay in touch
 
 - Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)

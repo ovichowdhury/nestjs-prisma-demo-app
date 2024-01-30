@@ -21,45 +21,47 @@ export class NotesController {
   @Post()
   @ApiTags('Notes')
   @ApiCreatedResponse({ type: NoteEntity })
-  create(@Body() createNoteDto: CreateNoteDto) {
-    return this.notesService.create(createNoteDto);
+  async create(@Body() createNoteDto: CreateNoteDto) {
+    return new NoteEntity(await this.notesService.create(createNoteDto));
   }
 
   @Get()
   @ApiTags('Notes')
   @ApiCreatedResponse({ type: NoteEntity, isArray: true })
-  findAll() {
-    return this.notesService.findAll();
+  async findAll() {
+    const notes = await this.notesService.findAll();
+    return notes.map((n) => new NoteEntity(n));
   }
 
   @Get('today')
   @ApiTags('Notes')
   @ApiCreatedResponse({ type: NoteEntity, isArray: true })
-  findToday() {
-    return this.notesService.findToday();
+  async findToday() {
+    const notes = await this.notesService.findToday();
+    return notes.map((n) => new NoteEntity(n));
   }
 
   @Get(':id')
   @ApiTags('Notes')
   @ApiCreatedResponse({ type: NoteEntity })
-  findOne(@Param('id', ParseIntPipe) id: string) {
-    return this.notesService.findOne(+id);
+  async findOne(@Param('id', ParseIntPipe) id: string) {
+    return new NoteEntity(await this.notesService.findOne(+id));
   }
 
   @Patch(':id')
   @ApiTags('Notes')
   @ApiCreatedResponse({ type: NoteEntity })
-  update(
+  async update(
     @Param('id', ParseIntPipe) id: string,
     @Body() updateNoteDto: UpdateNoteDto,
   ) {
-    return this.notesService.update(+id, updateNoteDto);
+    return new NoteEntity(await this.notesService.update(+id, updateNoteDto));
   }
 
   @Delete(':id')
   @ApiTags('Notes')
   @ApiCreatedResponse({ type: NoteEntity })
-  remove(@Param('id', ParseIntPipe) id: string) {
-    return this.notesService.remove(+id);
+  async remove(@Param('id', ParseIntPipe) id: string) {
+    return new NoteEntity(await this.notesService.remove(+id));
   }
 }

@@ -28,7 +28,12 @@ export class NotesService {
   }
 
   findOne(id: number) {
-    return this.prisma.notes.findUnique({ where: { id } });
+    return this.prisma.notes.findUnique({
+      where: { id },
+      include: {
+        author: true,
+      },
+    });
   }
 
   update(id: number, updateNoteDto: UpdateNoteDto) {

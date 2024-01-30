@@ -17,6 +17,11 @@ export class PrismaClientExceptionFilter extends BaseExceptionFilter {
           message: message,
         });
         break;
+      case 'P2002':
+        response.status(HttpStatus.CONFLICT).json({
+          message: message,
+        });
+        break;
       default:
         super.catch(exception, host);
         break;
